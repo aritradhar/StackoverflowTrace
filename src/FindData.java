@@ -11,6 +11,7 @@ public class FindData
 {
 	public static void main(String[] ar) throws IOException
 	{
+		long start = System.currentTimeMillis();
 		BufferedReader exbr = new BufferedReader(new FileReader("E:\\Aritra\\Exceptions.txt"));
 		String str= "";
 		ArrayList<String> exceptionList = new ArrayList<>();
@@ -27,8 +28,7 @@ public class FindData
 		
 		exbr.close();
 		
-		
-		long start = System.currentTimeMillis();
+	
 		@SuppressWarnings("resource")
 		BufferedReader br = new BufferedReader(new FileReader("E:\\Aritra\\normalized post\\norm.txt"));
 		FileWriter fw = new FileWriter("E:\\Aritra\\report.txt");
@@ -178,6 +178,16 @@ public class FindData
 		
 						hit[20]++;
 			
+			if(str.contains("java string") || str.contains("JAVA string") || str.contains("java String")
+					|| str.contains("JAVA String") || str.contains("java statck trace") || str.contains("stack trace")
+					|| str.contains("Stack trace") || str.contains("java exception stack trace")
+					|| str.contains("exception statck trace"))
+
+				hit[21]++;
+			
+			if(str.matches("at [a-zA-Z\\.]*String.[a-zA-Z]*(.*)"))
+				hit[22]++;
+			
 				if(line%1000000 == 0)
 				System.out.println(line);
 		}
@@ -205,10 +215,13 @@ public class FindData
 		fw.append("CMMException :"+hit[18]+"\n");
 		fw.append("ArrayStoreException :"+hit[19]+"\n");
 		fw.append("String failure count :"+hit[20]+"\n");
+		fw.append("Java string stack trace count :"+hit[21]+"\n");
+		fw.append("String stack trace ER matching :"+hit[22]+"\n");
 		
 		fw.append("Total record parsed :"+line+"\n");
 		fw.append("time taken :"+t+" ms\n");
 		fw.close();
 		br.close();
+		
 	}
 }
