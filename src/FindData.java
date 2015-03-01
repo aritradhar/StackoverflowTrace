@@ -188,6 +188,8 @@ public class FindData
 			if(str.matches("at [a-zA-Z\\.]*String.[a-zA-Z]*(.*)"))
 				hit[22]++;
 			
+			
+			
 				if(line%1000000 == 0)
 				System.out.println(line);
 		}
